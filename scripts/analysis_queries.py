@@ -252,6 +252,13 @@ def get_stops_by_region(engine, region_name: str) -> List[str]:
         logger.error(f"Error fetching stops for region '{region_name}': {e}", exc_info=True)
         # Return empty list on error
 
+    # Add numeric stop IDs that are known to work with the API
+    if region_name == "Nuremberg":
+        # These are numeric stop IDs that are known to work with the API
+        numeric_stop_ids = ["510", "546", "3151"]
+        logger.info(f"Adding {len(numeric_stop_ids)} numeric stop IDs for {region_name}.")
+        stop_ids.extend(numeric_stop_ids)
+
     return stop_ids
 
 
